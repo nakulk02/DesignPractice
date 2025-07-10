@@ -34,17 +34,23 @@ public class VendingMachine {
 		this.state=state;
 	}
 
-	public void addNewItems(Idle idle, List<Item> newItems) {
-		for(Item item:newItems)
+	public void addNewItems( List<Item> newItems) throws Exception {
+		if(state instanceof Idle) {
+			for(Item item:newItems)
+			{
+				if(items.containsKey(item.getName()))
+				{
+					item.addCount(item.getCount());
+				}
+				else
+				{
+					items.put(item.getName(), item);
+				}
+			}
+		}
+		else
 		{
-			if(items.containsKey(item.getName()))
-			{
-				item.addCount(item.getCount());
-			}
-			else
-			{
-				items.put(item.getName(), item);
-			}
+			throw new Exception("Not in correct state");
 		}
 	}
 	

@@ -26,7 +26,7 @@ public class Idle implements State {
 
 	@Override
 	public void addItems(List<Item> newItems) throws Exception {
-		vm.addNewItems(this,newItems);
+		vm.addNewItems(newItems);
 	}
 
 	@Override
