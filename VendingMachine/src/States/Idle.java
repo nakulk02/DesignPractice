@@ -1,13 +1,13 @@
 package States;
 
-import java.util.List;
+import java.util.HashMap;
 
-import Items.Item;
 import Machine.VendingMachine;
 
 public class Idle implements State {
 	
 	private VendingMachine vm;
+	
 	public Idle(VendingMachine vm)
 	{
 		this.vm=vm;
@@ -25,8 +25,8 @@ public class Idle implements State {
 	}
 
 	@Override
-	public void addItems(List<Item> newItems) throws Exception {
-		vm.addNewItems(newItems);
+	public void addItems(HashMap<String,Integer> newItems) throws Exception {
+		vm.addItems(newItems);
 	}
 
 	@Override
@@ -36,14 +36,16 @@ public class Idle implements State {
 
 	@Override
 	public void returnState() throws Exception {
-		if(vm.checkMoney()!=0)
-		{
-			changeState(new Dispence(vm));
-		}
+		changeState(new Dispence(vm));
 	}
 
 	@Override
 	public void removeItems() throws Exception{
 		throw new Exception("Not in correct state");		
+	}
+
+	@Override
+	public void removeSelected(String itemName, int count) throws Exception {
+		throw new Exception("Not in correct state");								
 	}
 }

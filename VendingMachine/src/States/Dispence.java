@@ -1,15 +1,15 @@
 package States;
 
-import java.util.List;
+import java.util.HashMap;
 
-import Items.Item;
 import Machine.VendingMachine;
 
 public class Dispence implements State {
-
 	
 	private VendingMachine vm;
-	public Dispence(VendingMachine vm) {
+
+	public Dispence(VendingMachine vm) 
+	{
 		this.vm=vm;
 	}
 
@@ -22,12 +22,7 @@ public class Dispence implements State {
 	public void addMoney(int money) throws Exception {
 		throw new Exception("Not in correct state");		
 	}
-
-	@Override
-	public void addItems(List<Item> newItems) throws Exception {
-		throw new Exception("Not in correct state");				
-	}
-
+	
 	@Override
 	public void selectItem(String itemName, int count) throws Exception {
 		throw new Exception("Not in correct state");				
@@ -43,5 +38,15 @@ public class Dispence implements State {
 	{
 		vm.emptyTally();
 		changeState(new Idle(vm));
+	}
+
+	@Override
+	public void addItems(HashMap<String, Integer> newItems) throws Exception {
+		throw new Exception("Not in correct state");				
+	}
+
+	@Override
+	public void removeSelected(String itemName, int count) throws Exception {
+		throw new Exception("Not in correct state");								
 	}
 }

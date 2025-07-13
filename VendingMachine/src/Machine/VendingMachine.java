@@ -34,18 +34,11 @@ public class VendingMachine {
 		this.state=state;
 	}
 
-	public void addNewItems( List<Item> newItems) throws Exception {
-		if(state instanceof Idle) {
-			for(Item item:newItems)
+	public void addItems( HashMap<String,Integer> newItems) throws Exception {
+		if(state instanceof Idle || state instanceof Selected) {
+			for(String item:newItems.keySet())
 			{
-				if(items.containsKey(item.getName()))
-				{
-					item.addCount(item.getCount());
-				}
-				else
-				{
-					items.put(item.getName(), item);
-				}
+				items.get(item).addCount(newItems.get(item));
 			}
 		}
 		else
@@ -66,10 +59,12 @@ public class VendingMachine {
 	
 	public void moneyAdded(Idle idle,int money)
 	{
+		earnings+=money;
 		moneyAdded+=money;
 	}
 	public void removeMoney(int money)
 	{
+		earnings-=money;
 		moneyAdded-=money;
 	}
 	public int checkMoney()
@@ -89,6 +84,20 @@ public class VendingMachine {
 		}
 		itemsSelected=new HashMap<>();
 		System.out.println("Here is your money: "+moneyAdded);
+		earnings-=moneyAdded;
 		moneyAdded=0;
+	}
+
+	public void removeSelectedItems(String itemName, int count) throws Exception {
+		Item item =items.get(itemName);
+		HashMap<String,Integer> hash=new HashMap<>();
+		hash.put(itemName,count);
+		addItems(hash);
+		moneyAdded+=count*item.getPrice();
+	}
+	
+	public int getEarnings()
+	{
+		return earnings;
 	}
 }

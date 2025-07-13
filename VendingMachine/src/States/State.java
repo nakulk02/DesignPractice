@@ -1,8 +1,6 @@
 package States;
 
-import java.util.List;
-
-import Items.Item;
+import java.util.HashMap;
 
 public interface State {
 	
@@ -11,15 +9,17 @@ public interface State {
 	 * Idle,MoneyAddition,Selected,Dispense
 	 */
 	
-	public void changeState(State state);
+	void changeState(State state);
 	
-	public void addMoney(int money) throws Exception;
+	void addMoney(int money) throws Exception;
 	
-	public void addItems(List<Item>newItems) throws Exception;
-
 	void selectItem(String itemName, int count) throws Exception;
 
 	void returnState() throws Exception;
 
 	void removeItems() throws Exception;
+
+	void addItems(HashMap<String, Integer> newItems) throws Exception;
+
+	void removeSelected(String itemName, int count) throws Exception;
 }
